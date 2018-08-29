@@ -1,0 +1,4 @@
+El programa busca dividir una palabra en dos palindromos de forma tal que cada palabra puede ser un palindromo, un i-palindromo
+(si se le saca la primer letra izquierda) y/o un d-palindromos (si se le quita la ultima letra a la palabra).
+
+Si no hay palindromos simplemente se mostrara "NO SE PUEDE".
