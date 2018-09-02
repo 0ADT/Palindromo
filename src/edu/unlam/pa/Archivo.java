@@ -33,21 +33,21 @@ public class Archivo {
 			scOrigen = new Scanner(fileOrigen);
 			scDestino = new Scanner(fileDestino);
 			
-			cadenaOrigen = scOrigen.next();
-			cadenaDestino = scDestino.next();
+			cadenaOrigen = scOrigen.nextLine();
+			cadenaDestino = scDestino.nextLine();
 			
-			while ((cadenaOrigen != null) && (cadenaDestino != null) && iguales) {
-
+			while (scOrigen.hasNextLine()  && scDestino.hasNextLine() && iguales) {
+				
+				cadenaOrigen = scOrigen.nextLine();
+				cadenaDestino = scDestino.nextLine();
+				
 				if (!cadenaOrigen.equals(cadenaDestino))
 					iguales = false;
-				
-				cadenaOrigen = null;
-				cadenaDestino = null;
-				if (scOrigen.hasNext()) {
-					cadenaOrigen = scOrigen.next();
-					cadenaDestino = scDestino.next();
-				}
 			}
+			
+		if(scOrigen.hasNextLine() || scDestino.hasNextLine())
+			iguales = false;
+			
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -57,10 +57,8 @@ public class Archivo {
 			scDestino.close();
 		}
 		
-		if ((iguales) && (cadenaOrigen == null) && (cadenaDestino == null))
-			return true;
-		
-		return false;
+		return iguales;
+
 	}
 
 	public String getPath() {
