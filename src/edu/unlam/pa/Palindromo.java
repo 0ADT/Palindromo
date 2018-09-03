@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
+import java.util.TreeSet;
 
 public class Palindromo {
 
@@ -22,9 +23,9 @@ public class Palindromo {
 
 		PrintWriter salida = new PrintWriter(new FileWriter("resource/prueba/obtenida/" + this.nombre + ".out"));
 		String palabraIzquierda, palabraDerecha;
-		int tipoPalabraIzq = 0;
-		int tipoPalabraDer = 0;
+		int tipoPalabraEntera = 0, tipoPalabraIzq = 0, tipoPalabraDer = 0;
 		boolean huboAcierto = false;
+		TreeSet<String> treePalindromos = new TreeSet<String>();
 		/*
 		 * Busco palindromos a ambos lados de un corte "i". Si existen, escribo en el
 		 * archivo los string que estan cargados con la palabra y el tipo de palindromo.
@@ -33,20 +34,20 @@ public class Palindromo {
 		
 		//analisis de la palabra completa
 		
-		tipoPalabraIzq = esPalabraDistinguida(palabra);
+		tipoPalabraEntera = esPalabraDistinguida(palabra);
 		
-		if(tipoPalabraIzq >0)
+		if(tipoPalabraEntera >0) {
 			huboAcierto = true;
-			
-		if (tipoPalabraIzq == 1)
-			salida.println(palabra + " palindromo");
-		else if (tipoPalabraIzq == 2)
-			salida.println(palabra + " i-palindromo");
-		else if (tipoPalabraIzq == 3)
-			salida.println(palabra + " d-palindromo");
-		else if (tipoPalabraIzq == 4)
-			salida.println(palabra + " i-palindromo d-palindromo");
-		
+			if (tipoPalabraEntera == 1)
+				treePalindromos.add(palabra + " palindromo");
+			else if (tipoPalabraEntera == 2)
+				treePalindromos.add(palabra + " i-palindromo");
+			else if (tipoPalabraEntera == 3)
+				treePalindromos.add(palabra + " d-palindromo");
+			else
+				treePalindromos.add(palabra + " i-palindromo d-palindromo");
+		}
+				
 		
 		for (int i = 2; i < palabra.length()-1 ; i++) {	//for de los cortes
 			
@@ -61,22 +62,22 @@ public class Palindromo {
 				huboAcierto = true;
 				
 				if (tipoPalabraIzq == 1)
-					salida.println(palabraIzquierda + " palindromo");
+					treePalindromos.add(palabraIzquierda + " palindromo");
 				else if(tipoPalabraIzq == 2) 
-					salida.println(palabraIzquierda + " i-palindromo");
+					treePalindromos.add(palabraIzquierda + " i-palindromo");
 				else if(tipoPalabraIzq == 3) 
-					salida.println(palabraIzquierda + " d-palindromo");
-				else if(tipoPalabraIzq == 4) 
-					salida.println(palabraIzquierda + " i-palindromo d-palindromo");
+					treePalindromos.add(palabraIzquierda + " d-palindromo");
+				else
+					treePalindromos.add(palabraIzquierda + " i-palindromo d-palindromo");
 				
 				if (tipoPalabraDer == 1)
-					salida.println(palabraDerecha + " palindromo");
+					treePalindromos.add(palabraDerecha + " palindromo");
 				else if(tipoPalabraDer == 2) 
-					salida.println(palabraDerecha + " i-palindromo");
+					treePalindromos.add(palabraDerecha + " i-palindromo");
 				else if(tipoPalabraDer == 3) 
-					salida.println(palabraDerecha + " d-palindromo");
-				else if(tipoPalabraDer == 4) 
-					salida.println(palabraDerecha + " i-palindromo d-palindromo");
+					treePalindromos.add(palabraDerecha + " d-palindromo");
+				else
+					treePalindromos.add(palabraDerecha + " i-palindromo d-palindromo");
 			}
 			
 
@@ -84,6 +85,12 @@ public class Palindromo {
 
 		if (!huboAcierto)
 			salida.print("NO SE PUEDE");
+		else
+		{
+			for (String s : treePalindromos) {
+			    salida.println(s);
+			}
+		}
 
 		salida.close();
 	}
